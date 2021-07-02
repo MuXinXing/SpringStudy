@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.mx.pojo.User" id="user"/>
+    <!--最基本的初始化bean方式，<bean>标签和其中的id，class属性,class代表需要初始化的类的路径，id代表初始化后的类的代名，唯一-->
+</beans>

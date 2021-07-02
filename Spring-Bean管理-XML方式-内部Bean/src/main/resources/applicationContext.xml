@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--使用内部bean-->
+    <bean id="user" class="com.mx.entity.User">
+        <property name="name" value="MX"/>
+        <!--先初始化外层bean user中的属性-->
+        <property name="dept">
+            <!--随后在初始化内部的bean dept，对应外层User中的Dept属性的set方法-->
+            <bean id="dept" class="com.mx.entity.Dept">
+                <constructor-arg index="0" value="安保部"/>
+                <!--Dept类中的构造方法或set方法均可设置属性值-->
+            </bean>
+        </property>
+    </bean>
+</beans>

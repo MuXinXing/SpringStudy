@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--普通构造方法注入-->
+    <bean id="user" class="com.mx.entity.User">
+        <constructor-arg index="0" value="MX"/>
+        <constructor-arg index="1" value="20"/>
+        <constructor-arg index="2" type="java.util.List">
+            <!--设置构造参数类型type为List-->
+            <list>
+            <!--使用List类型list标签设置list值-->
+                <value>222</value>
+                <!--按首value标签为顺序，插入list，如222为list元素0，333为list元素1-->
+                <value>333</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!--c命名空间法注入-->
+    <bean id="user2" class="com.mx.entity.User" c:name="MX" c:age="20" c:address="">
+        <!--使用c命名空间注入时，需要求List有对应的set方法-->
+        <property name="address">
+            <!--使用address的set方法注入属性-->
+            <list>
+                <!--List类型标签list-->
+                <value>111</value>
+                <value>222</value>
+            </list>
+        </property>
+    </bean>
+</beans>

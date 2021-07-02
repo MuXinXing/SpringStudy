@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <!--利用context标签中的property-placeholder location引入资源文件-->
+        <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean id="jdbcConnection" class="com.mx.pool.JdbcConnection">
+        <property name="driver" value="${JDBC.Driver}"/>
+        <property name="url" value="${JDBC.Url}"/>
+        <property name="userName" value="${JDBC.UserName}"/>
+        <property name="password" value="${JDBC.Password}"/>
+    </bean>
+</beans>

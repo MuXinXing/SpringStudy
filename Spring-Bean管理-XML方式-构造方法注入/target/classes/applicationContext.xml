@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="com.mx.entity.User">
+        <constructor-arg name="name" value="MX"/>
+        <constructor-arg name="age" value="20"/>
+        <!--使用constructor-arg标签进行有参构造注入-->
+    </bean>
+
+    <bean id="user2" class="com.mx.entity.User">
+        <constructor-arg index="0" value="MX"/>
+        <constructor-arg index="1" value="20"/>
+        <!--使用构造方法索引进行注入，0代表第一个参数-->
+    </bean>
+</beans>
