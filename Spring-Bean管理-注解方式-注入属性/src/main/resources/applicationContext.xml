@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:component-scan base-package="com.mx"/>
+    <!--
+        基于注解的方式实现属性注入
+        Spring提供了四个注解供注入使用
+        1.@AutoWried 根据属性类型进行自动注入
+        2.@Qualifier 根据属性名称进行注入
+        3.@Resource 可以根据类型和属性名称注入
+        4.@Value 注入普通类型属性，如int，char，String，Integer
+    -->
+</beans>
