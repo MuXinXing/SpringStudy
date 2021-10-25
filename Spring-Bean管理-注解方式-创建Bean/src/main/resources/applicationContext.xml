@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--Spring4.0后开启注解扫描需要依赖spring-aop-x.x.x.RELEASE.jar包-->
+    <context:component-scan base-package="com.mx"/>
+    <!--开启注解扫描功能
+        base-package是需要扫描注解的包名，可以写最上层目录，也可以写详细目录，
+        扫描多个目录则使用 , 隔开
+    -->
+
+    <!--Spring当中提供了四个针对Bean创建的注解
+        @Component 表示一个普通Bean
+        @Service 用于业务逻辑层(service层)创建bean
+        @Controller 用于控制层/Web层创建bean
+        @Repository 用于持久层(Dao层)创建bean
+        四个注解的功能一致，都是为了替代<bean id=“” class=""/>进行注解层面的创建bean
+        其次为了分清楚bean是属于那一层，如service层就使用@Service注解创建Service层的bean
+        每个注解当中都可以加入属性，对bean进行初始化操作，如
+        @Component(value="user")
+        相当于<bean id="user" class=""/>
+        创建bean的注解默认bean id为加了注解的类的首字母小写
+    -->
+</beans>
