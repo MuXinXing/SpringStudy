@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    
+    <context:component-scan base-package="com.mx"/>
+    <!--默认扫描方式，扫描整个包-->
+    
+    <context:component-scan base-package="com.mx" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--自定义扫描配置，use-default-filters="false"属性表示不使用默认扫描配置，使用自行创建的配置
+        context:include-filter中的type表示扫描类型，expression表示扫描类型的包路径
+        此句表示，只扫描com.mx包下的注解，注解类型为Controller
+    -->
+    <context:component-scan base-package="com.mx">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+    <!--context:exclude-filter中的type表示不需要扫描的类型，expression表示扫描类型的包路径
+        此句表示，不扫描com.mx包中含有Repository注解的类
+    -->
+</beans>
