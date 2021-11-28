@@ -53,7 +53,7 @@ Spring在普通人眼中就是个神的存在，但是在不普通人眼里，�
 
 > Spring体系结构图
 
-![Spring体系结构图](http://c.biancheng.net/uploads/allimg/210701/1031053202-0.png "Spring结构图")
+![](IMG\Spring_1.jpg)
 
 > Spring采用分层架构，Spring的各种功能被划分到多个模块当中，其大致可以理解成五个模块，不做细致分析，仅用于理解
 > - Data Access/Integration：数据访问/集成模块。
@@ -114,7 +114,7 @@ public class FirstSpring{
     <!--以上均为xml的文件约束信息，你可以理解为导入包啥的,只不过导入的是一个namespace，
 		里面包含着xml结构，语法，数据类型等等等。
 		Spring官方文档有，可直接去官方文档复制，不建议手写，容易出错。
-		当你下载了Spring源码之后，官方文档在：docs\spring-framework-reference文件夹中的index.html
+		当你下载了Spring源码之后，官方文档在：docs\spring-   	framework-reference文件夹中的index.html
 	-->
     
     <bean id="firstSpring" class="com.mx.entity.FristSpring"/>
@@ -137,7 +137,7 @@ public class SpringMain{
         String path="applicationContext.xml";
         //Spring applicationContext.xml配置文件路径，当你放在与项目同一路径下时，可以使用相对路径。
         ApplicationContext application=new ClassPathXmlApplicationContext(path);
-        //初始化Spring容器并加载配置文件，此时的application是一个初始化了的Spring容器。
+        //初始化Spring容器并加载配置文件，此时的application是一个初始化了的Spring容器，什么是容器，容器就是装东西的东西，Spring容器装的就是一堆bean。
         FirstSpring fs=(FirstSpring)application.getBean("firstSpring");
         //通过application获取实例化后的bean，getBean方法根据bean id去xml配置文件当中找到对应id的bean。
         fs.hello();
@@ -146,7 +146,7 @@ public class SpringMain{
 }
 ```
 
-​		至此，一个传统的Spring程序完成了。可以看到Spring程序与传统Java程序最本质的区别(我是这么理解的)，就是不用写new了。程序将创建对象的过程交给Spring去管理，同时这也是Spring最核心的概念之一，控制反转(IOC)。莫急着探究什么是IOC，后面会和你深入探讨♂。
+​		至此，一个传统的Spring程序完成了。可以看到Spring程序与传统Java程序最本质的区别(我是这么理解的)，就是不用写new了。程序将创建对象的过程交给Spring去管理，由Spring容器帮你去new。同时这也是Spring最核心的概念之一，控制反转(IOC)。莫急着探究什么是IOC，后面会和你深入探讨♂。
 
 
 
@@ -193,7 +193,116 @@ public class SpringConfigTest{
 
 可以看到，Spring使用@Configuration注解来声明一个配置类。这个注解就相当于xml文件中的beans标签，可以在被修饰的类中进行传统xml文件中的操作。配置类里头有一个@Bean注解来声明一个bean，就相当于xml文件中的bean标签，这么写可是一个xml文件也没有哦。
 
-​		到此，我们的第一个Spring程序的两种创建方式结束了，你已经对Spring有了一个基本的认识，我们要开始深入♂探讨了
+​		到此，我们的第一个Spring程序的两种创建方式结束了，你已经对Spring有了一个基本的认识，我们要开始深入♂探讨了。
+
+
+
+# 什么是IOC
+
+​		在OOP面对对象软件设计中，万物基于基于对象，对象与对象构成一个整体，对象与对象之间的关系组成一个系统，对象与对象之间的相互配合，能更好的实现一个完整的功能(搁着搁着呢)。一个程序的组成其实可以看做一组齿轮，齿轮与齿轮相互结合，才能带动系统运作。
+
+![IOC描述-传统软件系统对象关系](IMG/IOC_1.jpg)
+
+​		如图所示你会发现，传统软件的对象组成就像齿轮一样，每个齿轮(对象)紧密结合，一个齿轮转动带动其他齿轮一起转动，一个齿轮不转，其他齿轮也不转，齿轮之间的关系很亲密。这时我们可以说这些齿轮的耦合程度很高，齿轮之间的结合相当于对象之间的耦合。当对象之间的耦合度过高时，一个对象出现问题，就会出现极限一换多的情况，整个系统因为一个对象(齿轮)出现问题，整个系统就陷入了停滞。软件中的对象与否，模块与否，都会存在着耦合，耦合过高，软件就会出现奇奇怪怪的问题。为了解决软件里头的耦合度，一个外国(Michael Mattsson 迈克尔·马特森)软件工程专家提出了一种叫IOC的思想，注意，**IOC是一种思想**，不是一种花里胡哨的工具，也不是一种花里胡哨的技术方法，IOC它就是一种思想。
+
+## IOC的理解
+
+​		IOC（Inversion of Control 控制反转）的提出皆在解决代码之间的耦合度。通常我们创建一个对象需要自己手动new一个对象出来，并对对象进行属性赋值等各种操作与管理，这时创建对象的操作权限在我们的手中，我们new时他就有对象，不new就没有。IOC的核心想法是指将对象创建的过程从我们手中交给一个IOC容器手中，由IOC容器替我们进行对象的创建和管理。
+
+![](IMG/IOC_2.jpg)
+
+​		如图，中间的大齿轮就是一个IOC容器，它负责将Object1，2，3，4分割开来，使得其不再相互关联，而是通过IOC容器进行关联，就好比你自己找对象和通过媒婆帮你找对象是一个道理，需要一个中间商帮你牵线搭桥，至于中间商如何给你拉来一个相亲对象的，你完全不需要了解。于是乎你就可以理解，实现了IOC思想的地方，叫做IOC容器，而Spring，本质上也是一个IOC容器，里面包含了对对象创建的控制，对象属性的操作等等等。看到这，你应该明白了什么是IOC和什么是IOC容器。但是问题又来了，你听说过控制反转IOC，就肯定听说过依赖注入DI，那问题又来了，DI是什么东西，和IOC又有什么关系，那你就给看下边了。
+
+## DI的理解
+
+​		DI（Dependency Injection）依赖注入，好迷惑的词，它又跟IOC有什么关系？什么叫依赖叫注入？莫慌，让我们先写一个demo进行研究。
+
+```java
+public class A{
+    public void say(){
+        System.out.println("A类中的方法");
+    }
+}
+public class B{
+    private A a=new A();
+    public void depend(){
+        a.say();
+    }
+}
+```
+
+根据这个小demo可以看出，我们有一A一B两个类，B当中有一个成员A的对象，当我们需要在B中调用A的方法时，就必须通过A才能调用，这时我们可以说B依赖A，B依赖了A才能调用A中的方法，这就是依赖。哪什么是注入呢，我们在B中创建了一个A类型的成员a，要想使用成员a，就给初始化它：A a=new A()完成了一个初始化的动作，这个初始化动作就是注入，将想要的值赋值给a，a就完成了初始化，可以说a完成了注入。那问题又来了，依赖知道了，注入知道了，哪依赖注入又是什么？demo当中，B依赖A实现了B的depend方法，但是，你怎么知道成员a一定是B所依赖的A呢，这时肯定是要将a赋值成你所依赖的A啦，我们再划分下结构：
+
+> A a=new A();
+>
+> a.say();
+>
+> > a是B的成员变量
+> >
+> > > A是B的依赖，A被B依赖，A成为了B的被依赖对象，B是A的调用者，将被依赖的对象A赋值给成员a，就是a=new A()，A是成员a需要注入的外部属性，注入后就可以通过a调用被依赖对象A中的方法，这就是依赖注入。
+
+那么问题又来了，叭叭了半天，依赖注入DI和控制反转IOC又是什么关系？**其实DI和IOC是一个东西，DI的过程实现了IOC的思想，有了DI就实现了IOC，这个过程由你自己注入变成了Spring帮你注入，实现了一个反复横跳，而这个反复横跳，就是控制反转。**不知道为什么这帮搞计算机的老头老太要弄出这么多名词来扰乱心智。 你看我给你废话解析一下，Spring是不是一个大媒婆，是不是帮你找了符合条件的对象，你报了个三围，这个三围是不是你想要的对象的属性？Spring帮你把对应属性的对象搞出来再送到你面前，你就不用自己去找这个对象了。于是乎我们就可以这么理解，Spring帮你找对象的过程是一个**控制反转**的过程，你给Spring提供了一个三围，Spring根据三围帮你找到了这个对象，三围不就是需要**注入**到对象的值吗。总结流程下来就是，Spring帮你完成了对象的创建和初始化，整个处理过程你也不关心，Spring靠DI实现了IOC，DI就是IOC的实现方法，废话了半天，只有**DI是IOC的实现方法**这一句是最重要的。看了半天你发现，这就是一个你在搁着搁着呢的过程。~~感谢你又浪费了人生十分钟~~
+
+
+
+# Spring的DI方式
+
+​		你既然知道了DI，就肯定给明白Spring对于对象是怎么注入的，对于传统的对象注入方式我们有两种，一种是类自身构造方法的注入
+
+```java
+public class A{
+    private int id;
+    private String name;
+    
+    public A(int id,String name){
+        this.id=id;
+        this.name=name;
+    }
+}
+//构造方法注入
+A a=new A(1,"MX");
+```
+
+一种是通过类自身的Set方法进行注入
+
+```java
+public class A{
+    private int id;
+    private String name;
+
+    public void setId(int id){
+        this.id=id;
+    }
+    
+    public void setName(String name){
+        this.name=name;
+    }
+}
+//Set方法注入
+A a=new A();
+a.setId(1);
+a.setName("MX")
+```
+
+​		Spring也是通过这两种方法进行DI的，只不过这个过程通过配置文件或注解实现
+
+假设我们有一个User类，类中有int id,String name两个属性和其对应的构造方法User(int id,String name)，然后在配置文件中进行装配
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <bean class="com.mx.User" id="user">
+        <constructor-arg ref="1"/>
+        <constructor-arg ref="MX"/>
+    </bean>
+</beans>
+```
+
+<constructor-arg>标签
 
 
 # 施工中。。。
