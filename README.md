@@ -263,7 +263,7 @@ public class A{
 A a=new A(1,"MX");
 ```
 
-一种是通过类自身的Set方法进行注入
+一种是通过类自身的Set方法进行属性注入
 
 ```java
 public class A{
@@ -296,13 +296,13 @@ a.setName("MX")
         https://www.springframework.org/schema/beans/spring-beans.xsd">
     
     <bean class="com.mx.User" id="user">
-        <constructor-arg ref="1"/>
-        <constructor-arg ref="MX"/>
+        <constructor-arg index="0" value="20"/>
+        <constructor-arg index="1" value="MX"/>
     </bean>
 </beans>
 ```
 
-<constructor-arg>标签
+其中<constructor-arg>标签表示的是使用构造方法进行注入，index属性表示的是构造方法中的参数的下标，第一个index是第一个参数，第二个是第二个参数，以此类推。
 
 
 # 施工中。。。
